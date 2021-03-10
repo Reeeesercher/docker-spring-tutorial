@@ -30,6 +30,7 @@
 	</dependencies>
 
 	<build>
+		<sourceDirectory>src/main/java/com/example/dockerdemo/demo</sourceDirectory>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
