@@ -22,9 +22,7 @@ jobs:
         java-version: 15
     - name: Build with Maven
       run: mvn -B package --file pom.xml
-    - name: Build Docker Image
-      run: docker build . --file Dockerfile --tag spring-docker-demo:$(date +%s)
-    - name: Push to Docker Hub
+    - name: Build and Push to Docker Hub
       uses: docker/build-push-action@v1
       with:
         username: ${{ secrets.DOCKER_USERNAME }}
