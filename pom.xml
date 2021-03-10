@@ -44,7 +44,7 @@
 					</descriptorRefs>
 					<archive>
 						<manifest>
-							<mainClass>org.sample.App</mainClass>
+							<mainClass>com.example.dockerdemo.demo.DemoApplication</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
