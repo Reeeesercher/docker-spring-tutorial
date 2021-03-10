@@ -22,11 +22,18 @@ jobs:
         java-version: 15
     - name: Build with Maven
       run: mvn -B package --file pom.xml
-    - name: Build Docker Image
-      run: docker build . --file Dockerfile --tag spring-docker-demo:$(date +%s)
-    - name: Push to Docker Hub
-      uses: docker/build-push-action@v1
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v1
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+    - name: Login to DockerHub
+      uses: docker/login-action@v1
       with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
-        repository: erdnusskerne/spring-docker-demo
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+    - name: Build and push
+      id: docker_build
+      uses: docker/build-push-action@v2
+      with:
+        push: true
+        tags: user/app:latest
