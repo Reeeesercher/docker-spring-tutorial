@@ -1,5 +1,4 @@
 FROM openjdk:15
-COPY . /usr/src/demo
-WORKDIR /usr/src/demo
-RUN javac src/main/java/com/example/dockerdemo/demo/DemoApplication.java
-CMD ["java", "src/main/java/com/example/dockerdemo/demo/DemoApplication.java"]
+ADD ./target/demo.jar demo.jar
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "demo.jar"]
