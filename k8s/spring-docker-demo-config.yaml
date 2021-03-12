@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: spring-ms-configmap
+  namespace: spring-demo
+data:
+  init_env_var: hello-from-k8s

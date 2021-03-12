@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-docker-demo
+  namespace: spring-demo
+  labels:
+    app: spring-ms
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: spring-ms
+  template:
+    metadata:
+      labels:
+        app: spring-ms
+    spec:
+      containers:
+      - name: spring-ms
+        image: erdnusskerne/spring-docker-demo:main
+        ports:
+        - containerPort: 8080
+        env:
+        - name: DOCKER_ENV_VARIABLE
+          valueFrom:
+            configMapKeyRef:
+              name: spring-ms-configmap
+              key: init_env_var
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: spring-docker-demo-service
+  namespace: spring-demo
+spec:
+  selector:
+    app: spring-ms
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+      nodePort: 30001
